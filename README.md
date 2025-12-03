@@ -244,7 +244,7 @@ If you use this project in your research, please cite:
 ```bibtex
 @software{water_quality_2025,
   title = {Water Quality Classification & Prediction System},
-  author = {Your Name},
+  author = {Arvind},
   year = {2025},
   url = {https://github.com/Arvind-55555/Telangana-Water-Quality-Prediction}
 }
