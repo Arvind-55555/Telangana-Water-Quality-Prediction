@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Analysis - Telangana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-water"></i>
+                <span>Water Quality Monitor</span>
+            </div>
+            <div class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#statistics">Statistics</a>
+                <a href="#visualizations">Visualizations</a>
+                <a href="#models">ML Models</a>
+                <a href="#predictions">Predict</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Water Quality Analysis Dashboard</h1>
+            <p class="subtitle">Real-time monitoring and AI-powered predictions for Telangana water bodies</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <i class="fas fa-vial"></i>
+                    <h3 id="totalSamples">165</h3>
+                    <p>Water Samples</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>213</h3>
+                    <p>Monitoring Stations</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>93.94%</h3>
+                    <p>ML Accuracy</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>6</h3>
+                    <p>AI Models</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>About</h3>
+                    <p>Comprehensive water quality analysis using ML to classify water into Safe, Polluted, and Highly Polluted categories based on WHO/BIS standards.</p>
+                </div>
+                <div class="overview-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Source</h3>
+                    <p>Telangana Pollution Control Board - June 2025. Includes 213 monitoring stations across rivers and lakes.</p>
+                </div>
+                <div class="overview-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Technology</h3>
+                    <p>Random Forest, XGBoost, Neural Networks with 18 key water quality parameters including pH, BOD, COD, and coliform counts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Water Quality Statistics</h2>
+            
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card safe">
+                    <div class="metric-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>1.8%</h3>
+                        <p>Safe/Potable</p>
+                        <span class="metric-count">3 samples</span>
+                    </div>
+                </div>
+                <div class="metric-card polluted">
+                    <div class="metric-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>71.5%</h3>
+                        <p>Polluted</p>
+                        <span class="metric-count">118 samples</span>
+                    </div>
+                </div>
+                <div class="metric-card highly-polluted">
+                    <div class="metric-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>26.7%</h3>
+                        <p>Highly Polluted</p>
+                        <span class="metric-count">44 samples</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average WQI -->
+            <div class="wqi-display">
+                <h3>Average Water Quality Index</h3>
+                <div class="wqi-meter">
+                    <div class="wqi-value" id="avgWQI">46.20</div>
+                    <div class="wqi-label">Moderate Pollution</div>
+                </div>
+                <div class="wqi-scale">
+                    <div class="scale-segment safe">
+                        <span>Safe</span>
+                        <small>70-100</small>
+                    </div>
+                    <div class="scale-segment polluted">
+                        <span>Polluted</span>
+                        <small>40-69</small>
+                    </div>
+                    <div class="scale-segment highly">
+                        <span>Highly Polluted</span>
+                        <small>0-39</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visualizations Section -->
+    <section id="visualizations" class="section">
+        <div class="container">
+            <h2 class="section-title">Data Visualizations</h2>
+            
+            <div class="charts-grid">
+                <!-- Water Quality Distribution -->
+                <div class="chart-card">
+                    <h3>Water Quality Distribution</h3>
+                    <canvas id="qualityPieChart"></canvas>
+                </div>
+
+                <!-- Water Bodies Comparison -->
+                <div class="chart-card">
+                    <h3>Average WQI by Water Body</h3>
+                    <canvas id="waterBodyBarChart"></canvas>
+                </div>
+
+                <!-- Parameter Importance -->
+                <div class="chart-card">
+                    <h3>Top 10 Important Parameters</h3>
+                    <canvas id="featureImportanceChart"></canvas>
+                </div>
+
+                <!-- WQI Distribution -->
+                <div class="chart-card">
+                    <h3>WQI Distribution</h3>
+                    <canvas id="wqiHistogramChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ML Models Section -->
+    <section id="models" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Machine Learning Models</h2>
+            
+            <div class="models-grid">
+                <!-- Classification Models -->
+                <div class="model-section">
+                    <h3><i class="fas fa-tags"></i> Classification Models</h3>
+                    <p class="model-desc">Predict water quality category (Safe/Polluted/Highly Polluted)</p>
+                    <div class="model-cards">
+                        <div class="model-card">
+                            <div class="model-header">
+                                <i class="fas fa-tree"></i>
+                                <h4>Random Forest</h4>
+                            </div>
+                            <div class="model-accuracy">90.91%</div>
+                            <p class="model-label">Accuracy</p>
+                            <div class="model-features">
+                                <span class="feature-badge">✓ Interpretable</span>
+                                <span class="feature-badge">✓ Feature Importance</span>
+                            </div>
+                        </div>
+                        <div class="model-card best">
+                            <div class="model-header">
+                                <i class="fas fa-rocket"></i>
+                                <h4>XGBoost</h4>
+                                <span class="badge-best">BEST</span>
+                            </div>
+                            <div class="model-accuracy">93.94%</div>
+                            <p class="model-label">Accuracy</p>
+                            <div class="model-features">
+                                <span class="feature-badge">✓ Fast</span>
+                                <span class="feature-badge">✓ Accurate</span>
+                            </div>
+                        </div>
+                        <div class="model-card">
+                            <div class="model-header">
+                                <i class="fas fa-brain"></i>
+                                <h4>Neural Network</h4>
+                            </div>
+                            <div class="model-accuracy">87.88%</div>
+                            <p class="model-label">Accuracy</p>
+                            <div class="model-features">
+                                <span class="feature-badge">✓ Complex Patterns</span>
+                                <span class="feature-badge">✓ Deep Learning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regression Models -->
+                <div class="model-section">
+                    <h3><i class="fas fa-chart-line"></i> Regression Models</h3>
+                    <p class="model-desc">Predict Water Quality Index (WQI) value (0-100)</p>
+                    <div class="model-cards">
+                        <div class="model-card">
+                            <div class="model-header">
+                                <i class="fas fa-tree"></i>
+                                <h4>Random Forest</h4>
+                            </div>
+                            <div class="model-accuracy">0.915</div>
+                            <p class="model-label">R² Score</p>
+                            <div class="model-metrics">
+                                <span>RMSE: 3.37</span>
+                            </div>
+                        </div>
+                        <div class="model-card best">
+                            <div class="model-header">
+                                <i class="fas fa-rocket"></i>
+                                <h4>XGBoost</h4>
+                                <span class="badge-best">BEST</span>
+                            </div>
+                            <div class="model-accuracy">0.919</div>
+                            <p class="model-label">R² Score</p>
+                            <div class="model-metrics">
+                                <span>RMSE: 3.30</span>
+                            </div>
+                        </div>
+                        <div class="model-card">
+                            <div class="model-header">
+                                <i class="fas fa-brain"></i>
+                                <h4>Neural Network</h4>
+                            </div>
+                            <div class="model-accuracy">-</div>
+                            <p class="model-label">In Training</p>
+                            <div class="model-metrics">
+                                <span>Needs More Data</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Tool Section -->
+    <section id="predictions" class="section">
+        <div class="container">
+            <h2 class="section-title">Water Quality Prediction Tool</h2>
+            <div class="prediction-container">
+                <div class="prediction-info">
+                    <h3>How It Works</h3>
+                    <ol>
+                        <li>Enter water quality parameters</li>
+                        <li>System calculates using WHO/BIS standards</li>
+                        <li>Get instant classification and WQI</li>
+                        <li>Receive treatment recommendations</li>
+                    </ol>
+                    <div class="info-note">
+                        <i class="fas fa-flask"></i>
+                        <p><strong>Real-Time Calculation:</strong> This tool uses the same WHO/BIS water quality standards and weighted averaging method implemented in our ML models.</p>
+                    </div>
+                    <div class="standards-info">
+                        <h4><i class="fas fa-ruler-combined"></i> Standards Used</h4>
+                        <ul>
+                            <li><strong>pH:</strong> 6.5-8.5 (ideal: 7.0)</li>
+                            <li><strong>DO:</strong> ≥5.0 mg/L (ideal: 6.0)</li>
+                            <li><strong>BOD:</strong> ≤3.0 mg/L</li>
+                            <li><strong>COD:</strong> ≤10 mg/L</li>
+                            <li><strong>Total Coliform:</strong> ≤50 MPN/100ml</li>
+                            <li><strong>TDS:</strong> ≤500 mg/L (ideal: 300)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="prediction-form">
+                    <h3>Enter Parameters</h3>
+                    <form id="predictionForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>DO (mg/L)</label>
+                                <input type="number" step="0.1" value="6.5" id="do">
+                            </div>
+                            <div class="form-group">
+                                <label>pH</label>
+                                <input type="number" step="0.1" value="7.8" id="ph">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>BOD (mg/L)</label>
+                                <input type="number" step="0.1" value="2.5" id="bod">
+                            </div>
+                            <div class="form-group">
+                                <label>COD (mg/L)</label>
+                                <input type="number" step="1" value="25" id="cod">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Total Coliform (MPN/100ml)</label>
+                                <input type="number" step="1" value="30" id="coliform">
+                            </div>
+                            <div class="form-group">
+                                <label>TDS (mg/L)</label>
+                                <input type="number" step="1" value="400" id="tds">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-predict">
+                            <i class="fas fa-magic"></i> Predict Quality
+                        </button>
+                    </form>
+                    <div id="predictionResult" class="prediction-result" style="display: none;">
+                        <h4>Prediction Results</h4>
+                        <div class="result-content">
+                            <div class="result-classification">
+                                <strong>Classification:</strong>
+                                <span id="resultClass" class="badge-polluted">Polluted</span>
+                            </div>
+                            <div class="result-wqi">
+                                <strong>Predicted WQI:</strong>
+                                <span id="resultWQI">52.46</span>
+                            </div>
+                            <div class="result-recommendation">
+                                <strong>Recommendation:</strong>
+                                <p id="resultRecommendation">Water treatment recommended before use.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Water Quality Monitor</h4>
+                    <p>AI-powered water quality analysis for Telangana</p>
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername/water-quality" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#statistics">Statistics</a></li>
+                        <li><a href="#visualizations">Visualizations</a></li>
+                        <li><a href="#models">Models</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/yourusername/water-quality">GitHub Repository</a></li>
+                        <li><a href="documentation/README.md">Documentation</a></li>
+                        <li><a href="documentation/USAGE_GUIDE.md">Usage Guide</a></li>
+                        <li><a href="src/notebooks/water_quality_analysis.ipynb">Jupyter Notebook</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Data Source</h4>
+                    <p>Telangana Pollution Control Board</p>
+                    <p>June 2025</p>
+                    <p class="footer-note">213 monitoring stations</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Water Quality Analysis Project. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart"></i> using Machine Learning</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
