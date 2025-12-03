@@ -64,7 +64,7 @@ water-quality/
 ## Quick Start
 
 ### Option 1: Web Dashboard (No Installation)
-Visit the [**Live Dashboard**](https://yourusername.github.io/water-quality/) to explore visualizations and results.
+Visit the [**Live Dashboard**](https://arvind-55555.github.io/Telangana-Water-Quality-Prediction/) to explore visualizations and results.
 
 ### Option 2: Run Locally
 
