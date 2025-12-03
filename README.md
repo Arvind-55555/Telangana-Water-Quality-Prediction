@@ -234,8 +234,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-- **Issues**: [GitHub Issues](https://github.com/Arvind-55555/water-quality/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Arvind-55555/water-quality/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Arvind-55555/Telangana-Water-Quality-Prediction/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Arvind-55555/Telangana-Water-Quality-Prediction/discussions)
 
 ## 🎓 Citation
 
@@ -246,7 +246,7 @@ If you use this project in your research, please cite:
   title = {Water Quality Classification & Prediction System},
   author = {Your Name},
   year = {2025},
-  url = {https://github.com/Arvind-55555/water-quality}
+  url = {https://github.com/Arvind-55555/Telangana-Water-Quality-Prediction}
 }
 ```
 
@@ -257,7 +257,7 @@ If you use this project in your research, please cite:
 **Star this repo if you find it useful!**
 
 
-[Report Bug](https://github.com/Arvind-55555/water-quality/issues) · [Request Feature](https://github.com/Arvind-55555/water-quality/issues) · [Documentation](documentation/)
+[Report Bug](https://github.com/Arvind-55555/Telangana-Water-Quality-Prediction/issues) · [Request Feature](https://github.com/Arvind-55555/Telangana-Water-Quality-Prediction/issues) · [Documentation](documentation/)
 
 </div>
 
