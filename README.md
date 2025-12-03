@@ -11,7 +11,7 @@
 
 A comprehensive machine learning system that analyzes water quality data from 213 monitoring stations across Telangana, classifies water into three categories (Safe/Potable, Polluted, Highly Polluted), and predicts Water Quality Index (WQI) using multiple AI models.
 
-### [**Live Dashboard**](https://Arvind-55555.github.io/water-quality/) | [**Documentation**](documentation/) | [**Notebook**](src/notebooks/)
+### [**Live Dashboard**](https://arvind-55555.github.io/Telangana-Water-Quality-Prediction/) | [**Documentation**](documentation/) | [**Notebook**](src/notebooks/)
 
 ## Features
 
